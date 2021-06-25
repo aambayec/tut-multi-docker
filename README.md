@@ -1,3 +1,13 @@
+# Multi Docker Container
+
+Sample project with multi docker container.
+
+- nginx
+- react app
+- node server
+- postgres
+- redis
+
 ```
-docker-compose down && docker-compose up --build
+docker-compose up
 ```
