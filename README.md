@@ -8,6 +8,13 @@ Sample project with multi docker container.
 - postgres
 - redis
 
+CI/CD
+
+- Travis CI
+- AWS
+
+# Commands
+
 ```
 docker-compose up
 ```

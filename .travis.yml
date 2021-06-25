@@ -1,0 +1,23 @@
+language: generic
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t alaena/client-test -f ./client/Dockerfile.dev ./client
+
+script:
+  - docker run -e CI=true alaena/client-test npm test
+
+after_success:
+  - docker build -t alaena/tut-multi-client ./client
+  - docker build -t alaena/tut-multi-nginx ./nginx
+  - docker build -t alaena/tut-multi-server ./server
+  - docker build -t alaena/tut-multi-worker ./worker
+  # Login to the docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" -- password-stdin
+  # Take those images and push them to docker hub
+  - docker push alaena/tut-multi-client
+  - docker push alaena/tut-multi-nginx
+  - docker push alaena/tut-multi-server
+  - docker push alaena/tut-multi-worker
